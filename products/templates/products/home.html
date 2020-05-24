@@ -1,7 +1,25 @@
-{% extends 'base.html' %} 
-<!-- means we are pulling from base.html -->
-<!-- this is helpful in saving the code again and again for global things like navbar -->
+{% extends 'base.html' %}
+
 {% block content %}
-<h1>this is crazy</h1>
+
+{% for product in products.all %}
+<div class="row pt-3">
+  <div class="col-2" onclick="window.location='{% url 'detail' product.id %}';" style="cursor:pointer" >
+    <img src="{{ product.image.url }}" class="img-fluid" />
+  </div>
+  <div class="col-6"  onclick="window.location='{% url 'detail' product.id %}';" style="cursor:pointer">
+    <h1>{{ product.title }}</h1>
+    <p>{{ product.summary }}</p>
+  </div>
+  <div class="col-4">
+    <a href="javascript:{document.getElementById('upvote{{ product.id }}').submit()}"><button class="btn btn-primary btn-lg btn-block"><span class="oi oi-caret-top"></span> Upvote {{ product.votes_total }}</button></a>
+  </div>
+</div>
+
+<form id="upvote{{ product.id }}" method="POST" action="{% url 'upvote' product.id %}">
+  {% csrf_token%}
+  <input type="hidden">
+</form>
+{% endfor %}
 
 {% endblock %}

@@ -124,4 +124,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+STATICFILES_DIRS=[
+    os.path.join(BASE_DIR,'producthunt/static/')
+]
+
+STATIC_ROOT=os.path.join(BASE_DIR,'static')
+
 STATIC_URL = '/static/'
+
+
+#telling django where to save our files of mediaa
+MEDIA_ROOT=os.path.join(BASE_DIR, 'media')
+
+#when someone is trying to access an image where should hthe y go
+MEDIA_URL='/coolstuff/'

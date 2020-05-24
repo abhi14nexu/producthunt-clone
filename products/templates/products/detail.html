@@ -1,0 +1,65 @@
+{% extends 'base.html' %} 
+<!-- means we are pulling from base.html -->
+<!-- this is helpful in saving the code again and again for global things like navbar -->
+{% block content %}
+<div class="row">
+  <div class="col-2">
+    <img src="{{product.icon.url}}" class="img-fluid"/>
+    </div>
+    <div class="col-10">
+    <a href="{{ product.url }}">
+      <h1>{{ product.title }}</h1>
+    </a>
+    </div>
+</div>
+
+<div class="row">
+  
+  <div class="col-8">
+    <img src="{{ product.image.url }}" alt="" class="img-fluid" />
+
+  </div>
+  
+  <div class="col-4">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+  
+    
+    <a href="javascript:{document.getElementById('upvote').submit()}"><button class="btn btn-outline-success btn-lg btn-block"><span class="oi oi-caret-top"></span> Upvote {{ product.votes_total }}</button></a>
+    <br>
+  
+    <a href="javascript:{document.getElementById('downvote').submit()}"><button class="btn btn-outline-danger btn-lg btn-block"><span class="oi oi-caret-bottom"></span> Downvote {{ product.votes_total }}</button></a>
+  
+
+  </div>
+</div>
+<div class="row">
+  <div class="col-4 text-left">
+    <h4><span class="oi oi-magnifying-glass"></span>  Hunted by <i><strong>{{ product.hunter.username }}</strong> </i></h4>
+  </div>
+  <div class="col-4 text-right">
+    <h5> {{ product.pub_date }}</h5>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col">
+    {{ product.body }}
+  </div>
+</div>
+
+<!-- for upvoting counter -->
+<form id="upvote" method="POST" action="{% url 'upvote' product.id %}">
+  {% csrf_token %}
+  <input type="hidden">
+</form>
+<form id="downvote" method="POST" action="{% url 'downvote' product.id %}">
+  {% csrf_token %}
+  <input type="hidden">
+</form>
+{% endblock %}
+
+
